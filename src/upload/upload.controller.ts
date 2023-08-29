@@ -1,5 +1,6 @@
 import {
   Controller,
+  Param,
   Post,
   UploadedFile,
   UploadedFiles,
@@ -26,5 +27,13 @@ export class UploadController {
     const urls = await this.uploadService.uploadMultipleFiles(files);
     return urls;
   }
-
+  @Post('/add/:isletmeid')
+  @UseInterceptors(FilesInterceptor('files'))
+  async addImages(
+    @UploadedFiles() files: Express.Multer.File[],
+    @Param('isletmeid') isletmeid: string, // Parametreyi burada alıyoruz
+  ): Promise<string[]> {
+    const urls = await this.uploadService.addImagetoDB(isletmeid, files);
+    return urls;
+  }
 }
