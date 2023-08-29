@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
   const config = new DocumentBuilder()
-    .setTitle('NestJS API')
-    .setDescription('The NestJS API description')
+    .setTitle('Firebase Cloud Storage API')
+    .setDescription('Firebase Cloud Storage upload a photo API')
     .setVersion('1.0')
     .addTag('nestjs')
     .build();
@@ -16,6 +16,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   await app.listen(process.env.SERVER_PORT);
-  console.log(`Server started at ${process.env.SERVER_PORT}`);
+  console.log(
+    `Server started with succesfuly at ${process.env.SERVER_PORT} port`,
+  );
 }
 bootstrap();
