@@ -30,4 +30,37 @@ export class UploadService {
 
     return url;
   }
+  async uploadMultipleFiles(files: any[]): Promise<string[]> {
+    const urls: string[] = [];
+    await Promise.all(
+      files?.map(async (file) => {
+        const uniqueFilename = uuidv4() + '_' + file.originalname;
+        const fileUpload = bucket.file(uniqueFilename);
+
+        const stream = fileUpload.createWriteStream({
+          metadata: {
+            contentType: file.mimetype,
+          },
+        });
+        await new Promise<void>((resolve, reject) => {
+          stream.on('finish', () => {
+            resolve();
+          });
+
+          stream.on('error', (error) => {
+            reject(error);
+          });
+
+          stream.end(file.buffer);
+        });
+
+        const fileReference = bucket.file(uniqueFilename);
+        await fileReference.makePublic();
+        const url = await fileUpload.publicUrl();
+        urls.push(url);
+      }),
+    );
+
+    return urls;
+  }
 }
