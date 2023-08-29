@@ -26,4 +26,5 @@ export class UploadController {
     const urls = await this.uploadService.uploadMultipleFiles(files);
     return urls;
   }
+
 }
