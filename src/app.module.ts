@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UploadModule } from './upload/upload.module';
 import { UploadController } from './upload/upload.controller';
 import { UploadService } from './upload/upload.service';
+import { Gorseller } from './isletmeler/entities/gorseller.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -16,6 +17,7 @@ import { UploadService } from './upload/upload.service';
     UserModule,
     IsletmelerModule,
     UploadModule,
+    TypeOrmModule.forFeature([Gorseller]),
   ],
   controllers: [AppController, UploadController],
   providers: [AppService, UploadService],

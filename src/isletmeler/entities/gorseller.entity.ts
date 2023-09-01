@@ -5,14 +5,14 @@ import { Isletmeler } from './isletmeler.entity';
 @Entity({ name: 'Gorseller' })
 export class Gorseller extends EntityBase {
   @Column()
-  name: string;
+  photoName: string;
 
   @Column()
   description: string;
 
   @Column()
-  filename: string;
+  url: string;
 
   @ManyToOne(() => Isletmeler, (isletme) => isletme.gorsel)
-  isletme: Isletmeler;
+  isletme: string;
 }
