@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   Param,
   Post,
@@ -27,13 +28,17 @@ export class UploadController {
     const urls = await this.uploadService.uploadMultipleFiles(files);
     return urls;
   }
-  @Post('/add/:isletmeid')
+  @Post('/add/:isletmeId')
   @UseInterceptors(FilesInterceptor('files'))
   async addImages(
     @UploadedFiles() files: Express.Multer.File[],
-    @Param('isletmeid') isletmeid: string, // Parametreyi burada alıyoruz
+    @Param('isletmeId') isletmeId: string, // Parametreyi burada alıyoruz
   ): Promise<string[]> {
-    const urls = await this.uploadService.addImagetoDB(isletmeid, files);
+    if (!isletmeId) {
+      throw new BadRequestException('isletmeId eksik veya geçersiz.');
+    }
+    console.log(isletmeId);
+    const urls = await this.uploadService.addImagetoDB(isletmeId, files);
     return urls;
   }
 }

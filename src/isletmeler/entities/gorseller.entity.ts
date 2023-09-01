@@ -14,5 +14,5 @@ export class Gorseller extends EntityBase {
   url: string;
 
   @ManyToOne(() => Isletmeler, (isletme) => isletme.gorsel)
-  isletme: Isletmeler;
+  isletme: string;
 }
