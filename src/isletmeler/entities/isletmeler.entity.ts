@@ -9,9 +9,6 @@ export class Isletmeler extends EntityBase {
   isletmeAdi: string;
 
   @Column()
-  isletmeGorsel: string;
-
-  @Column()
   isletmeAcikAdresi: string;
 
   @Column({ length: 11 })
@@ -20,7 +17,7 @@ export class Isletmeler extends EntityBase {
   @Column()
   isletmeTipi: string;
 
-  @Column()
+  @Column({ nullable: true, default: 0 })
   isletmePuani: number;
 
   @Column()

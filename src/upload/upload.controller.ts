@@ -32,7 +32,7 @@ export class UploadController {
   @UseInterceptors(FilesInterceptor('files'))
   async addImages(
     @UploadedFiles() files: Express.Multer.File[],
-    @Param('isletmeId') isletmeId: string, // Parametreyi burada alıyoruz
+    @Param('isletmeId') isletmeId: string, // Parameter
   ): Promise<string[]> {
     if (!isletmeId) {
       throw new BadRequestException('isletmeId eksik veya geçersiz.');
